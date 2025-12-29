@@ -1,0 +1,1054 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+  <nav class="main-menu d-flex navbar fixed-top navbar-expand-lg py-lg-4">
+    <div class="container">
+      <div class="main-logo d-lg-none">
+        <a href="index.html">
+          <img src="{% static 'img/kaizen_logo.png' %}" alt="logo" class="img-fluid" style= "width: 50px; height: 50px;">
+        </a>
+      </div>
+
+      <button class="navbar-toggler border-0 shadow-none " type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="offcanvas offcanvas-end bg-black" tabindex="-1" id="offcanvasNavbar"
+        aria-labelledby="offcanvasNavbarLabel">
+
+        <div class="offcanvas-header justify-content-center">
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
+        </div>
+
+        <div class="offcanvas-body justify-content-between align-items-center">
+
+          <div class="main-logo">
+            <a href="index.html">
+              <img src="{% static 'img/kaizen_logo.png' %}" alt="logo" class="img-fluid" style= "width: 50px; height: 50px;">
+            </a>
+          </div>
+
+          <ul class="navbar-nav menu-list list-unstyled d-flex gap-md-3 ps-lg-5 mb-0">
+            <li class="nav-item">
+              <a href="index.html" class="nav-link mx-2 active">Home</a>
+            </li>
+            <li class = "nav-item">
+                <a href="about.html" class="nav-link mx-2">About</a>
+            </li>
+            {% comment %} <li class="nav-item dropdown">
+              <a class="nav-link mx-2 dropdown-toggle" role="button" id="pages" data-bs-toggle="dropdown"
+                aria-expanded="false">Pages</a>
+              <ul class="dropdown-menu p-3 p-lg-0" aria-labelledby="pages">
+                <li><a href="about.html" class="dropdown-item">About Us<span
+                      class="badge bg-primary text-light ms-2">PRO</span></a></li>
+                <li><a href="cart.html" class="dropdown-item">Cart<span
+                      class="badge bg-primary text-light ms-2">PRO</span></a></li>
+                <li><a href="wishlist.html" class="dropdown-item">Wishlist<span
+                      class="badge bg-primary text-light ms-2">PRO</span></a></li>
+                <li><a href="checkout.html" class="dropdown-item">Checkout<span
+                      class="badge bg-primary text-light ms-2">PRO</span></a></li>
+                <li><a href="contact.html" class="dropdown-item">Contact<span
+                      class="badge bg-primary text-light ms-2">PRO</span></a></li>
+                <li><a href="faqs.html" class="dropdown-item">FAQs<span
+                      class="badge bg-primary text-light ms-2">PRO</span></a></li>
+                <li><a href="account.html" class="dropdown-item">Account<span
+                      class="badge bg-primary text-light ms-2">PRO</span></a></li>
+                <li><a href="thank-you.html" class="dropdown-item">Thankyou<span
+                      class="badge bg-primary text-light ms-2">PRO</span></a></li>
+                <li><a href="error.html" class="dropdown-item">Error 404<span
+                      class="badge bg-primary text-light ms-2">PRO</span></a></li>
+                <li><a href="styles.html" class="dropdown-item">Styles<span
+                      class="badge bg-primary text-light ms-2">PRO</span></a></li>
+              </ul>
+            </li> {% endcomment %}
+            <li class="nav-item">
+              <a href="shop.html" class="nav-link mx-2">Shop</a>
+            </li>
+            <li class="nav-item">
+              <a href="blog.html" class="nav-link mx-2">Blog</a>
+            </li>
+
+            <li class="nav-item">
+              <a href="contact.html" class="nav-link mx-2">Contact</a>
+            </li>
+
+            {% comment %} <li class="nav-item">
+              <a href="https://templatesjungle.gumroad.com/l/aura"
+                class="nav-link fw-bold text-decoration-underline mx-2" target="_blank">GET PRO</a>
+            </li>
+          </ul> {% endcomment %}
+
+          <div class="d-none d-lg-flex justify-content-end">
+            <ul class="d-flex justify-content-end list-unstyled m-0">
+              <li class="lh-1">
+                <a href="account.html" class="mx-3">
+                  <iconify-icon icon="healthicons:person" class="fs-4 text-light"></iconify-icon>
+                </a>
+              </li>
+              <li class="lh-1">
+                <a href="wishlist.html" class="mx-3">
+                  <iconify-icon icon="mdi:heart" class="fs-4 text-light"></iconify-icon>
+                </a>
+              </li>
+
+              <li class="lh-1">
+                <a href="#" class="mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart"
+                  aria-controls="offcanvasCart">
+                  <iconify-icon icon="mdi:cart" class="fs-4 text-light position-relative"></iconify-icon>
+                  <span class="position-absolute translate-middle badge rounded-circle text-black bg-light p-1">
+                    03
+                  </span>
+                </a>
+              </li>
+
+              <li class="lh-1">
+                <a href="#" class="mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSearch"
+                  aria-controls="offcanvasSearch">
+                  <iconify-icon icon="tabler:search" class="fs-4 text-light"></iconify-icon>
+                </a>
+              </li>
+
+            </ul>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid px-md-5 d-lg-none">
+      <ul class="d-flex justify-content-end list-unstyled m-0 mt-4">
+        <li class="lh-1">
+          <a href="account.html" class="me-4">
+            <iconify-icon icon="healthicons:person" class="fs-4 text-light"></iconify-icon>
+          </a>
+        </li>
+        <li class="lh-1">
+          <a href="wishlist.html" class="me-4">
+            <iconify-icon icon="mdi:heart" class="fs-4 text-light"></iconify-icon>
+          </a>
+        </li>
+
+        <li class="lh-1">
+          <a href="#" class="me-4" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart"
+            aria-controls="offcanvasCart">
+            <iconify-icon icon="mdi:cart" class="fs-4 text-light position-relative"></iconify-icon>
+            <span class="position-absolute translate-middle badge rounded-circle text-black bg-light p-1">
+              03
+            </span>
+          </a>
+        </li>
+
+        <li class="lh-1">
+          <a href="#" class="me-4" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSearch"
+            aria-controls="offcanvasSearch">
+            <iconify-icon icon="tabler:search" class="fs-4 text-light"></iconify-icon>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <section id="hero">
+    <div class="swiper slideshow">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"
+          style="background-image:url({% static 'img/banner2.jpg' %}); background-repeat: no-repeat; background-position: center; height:870px;">
+          <div class="container padding-large">
+            <div class="row justify-content-end">
+              <div class="col-lg-6" data-aos="fade-up">
+                <h2 class="display-1 text-uppercase text-white mt-3">Reveal Your Beauty</h2>
+                <p class="text-capitalize text-white fs-5 mb-4">Discover Your Perfect Look With Premium Cosmetics</p>
+                <a href="#" class="btn btn-light">
+                  Shop Collection
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide"
+          style="background-image:url({% static 'img/banner1.jpg' %}); background-repeat: no-repeat; background-position: center; height:870px;">
+          <div class="container padding-large">
+            <div class="row justify-content-end">
+              <div class="col-lg-6" data-aos="fade-up">
+                <h2 class="display-1 text-uppercase text-white mt-3">Enhance Your Glow</h2>
+                <p class="text-capitalize text-white fs-5 mb-4">Illuminate Your Beauty With Premium Skincare</p>
+                <a href="#" class="btn btn-light">
+                  Shop Now
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide"
+          style="background-image:url({% static 'img/banner3.jpg' %}); background-repeat: no-repeat; background-position: center; height:870px;">
+          <div class="container padding-large">
+            <div class="row justify-content-end">
+              <div class="col-lg-6" data-aos="fade-up">
+                <h2 class="display-1 text-uppercase text-white mt-3">Define Your Beauty</h2>
+                <p class="text-capitalize text-white fs-5 mb-4">Transform Your Look With Luxury Cosmetics</p>
+                <a href="#" class="btn btn-light">
+                  Explore Products
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-pagination swiper-pagination-slideshow"></div>
+    </div>
+  </section>
+
+  <section class="logo-bar">
+    <div class="container padding-medium" data-aos="fade-up">
+      <div class="row ">
+        <div class="logo-content d-flex flex-wrap justify-content-between">
+          <a href="#"> <img src="{% static 'img/logo1.png' %}" alt="logo" class="logo-image img-fluid my-3"> </a>
+          <a href="#"> <img src="{% static 'img/logo2.png' %}" alt="logo" class="logo-image img-fluid my-3"> </a>
+          <a href="#"> <img src="{% static 'img/logo3.png' %}" alt="logo" class="logo-image img-fluid my-3"> </a>
+          <a href="#"> <img src="{% static 'img/logo4.png' %}" alt="logo" class="logo-image img-fluid my-3"> </a>
+          <a href="#"> <img src="{% static 'img/logo5.png' %}" alt="logo" class="logo-image img-fluid my-3"> </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="category">
+    <div class="container-fluid px-3 px-md-5">
+      <div class="row">
+        <div class="col-md-4 position-relative" data-aos="fade-up" data-aos-delay="300">
+          <div class="z-1 position-absolute bottom-0 start-0 m-3 m-lg-5 ps-4 text-white">
+            <h3 class="text-light text-uppercase">Skincare Essentials</h3>
+          </div>
+          <div class="image-holder zoom-effect">
+            <a href="single-post.html">
+              <img src="{% static 'img/category1.jpg' %}" alt="Luxury skincare products" class="post-image img-fluid">
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4 position-relative" data-aos="fade-up" data-aos-delay="600">
+          <div class="z-1 position-absolute bottom-0 start-0 m-3 m-lg-5 ps-4 text-white">
+            <h3 class="text-light text-uppercase">Makeup Collection</h3>
+          </div>
+          <div class="image-holder zoom-effect">
+            <a href="single-post.html">
+              <img src="{% static 'img/category3.jpg' %}" alt="Premium makeup products" class="post-image img-fluid">
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4 position-relative" data-aos="fade-up" data-aos-delay="900">
+          <div class="z-1 position-absolute bottom-0 start-0 m-3 m-lg-5 ps-4 text-white">
+            <h3 class="text-light text-uppercase">Fragrance & Scents</h3>
+          </div>
+          <div class="image-holder zoom-effect">
+            <a href="single-post.html">
+              <img src="{% static 'img/category2.jpg'%}" alt="Luxury perfume bottles" class="post-image img-fluid">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="new-arrival" class="product-store">
+    <div class="container padding-medium" data-aos="fade-up">
+      <h2 class="display-5 fw-light text-uppercase text-center">New Arrivals</h2>
+      <p class="text-center mb-4">Browse our brand new collections</p>
+      <div class="row">
+        <div class="col-md-6 col-lg-3 my-4">
+          <div class="product-item">
+            <div class="image-holder" style="width: 100%; height: 100%;">
+              <img src="{% static 'img/product-item15.jpg' %}" alt="Books" class="product-image img-fluid">
+            </div>
+            <div class="cart-concern">
+              <div class="cart-button d-flex justify-content-between align-items-center">
+                <a href="#" class="btn-wrap cart-link d-flex align-items-center text-capitalize fs-6 ">add to cart <i
+                    class="icon icon-arrow-io pe-1"></i>
+                </a>
+                <a href="single-product.html" class="view-btn mt-1">
+                  <i class="icon icon-screen-full"></i>
+                </a>
+                <a href="#" class="wishlist-btn mt-1">
+                  <i class="icon icon-heart"></i>
+                </a>
+              </div>
+            </div>
+            <div class="product-detail d-flex justify-content-between align-items-center mt-2">
+              <a href="single-product.html">
+                <h5 class="product-title mb-0">
+                  Product Sample
+                </h5>
+              </a>
+              <p class="m-0 fs-5 fw-normal">$40.00</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 my-4">
+          <div class="product-item position-relative">
+            <div class="z-1 position-absolute top-0 start-0 rounded-3 m-3 px-3 py-0 fs-6 bg-primary text-white">
+              New
+            </div>
+            <div class="image-holder">
+              <img src="{% static 'img/product-item14.jpg' %}" alt="Books" class="product-image img-fluid">
+            </div>
+            <div class="cart-concern">
+              <div class="cart-button d-flex justify-content-between align-items-center">
+                <a href="#" class="btn-wrap cart-link d-flex align-items-center text-capitalize fs-6 ">add to cart <i
+                    class="icon icon-arrow-io pe-1"></i>
+                </a>
+                <a href="single-product.html" class="view-btn mt-1">
+                  <i class="icon icon-screen-full"></i>
+                </a>
+                <a href="#" class="wishlist-btn mt-1">
+                  <i class="icon icon-heart"></i>
+                </a>
+              </div>
+            </div>
+            <div class="product-detail d-flex justify-content-between align-items-center mt-2">
+              <a href="single-product.html">
+                <h5 class="product-title mb-0"> Product Sample </h5>
+              </a>
+              <p class="m-0 fs-5 fw-normal">$40.00</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 my-4">
+          <div class="product-item">
+            <div class="image-holder">
+              <img src="{% static 'img/product-item6.jpg' %}" alt="Books" class="product-image img-fluid">
+            </div>
+            <div class="cart-concern">
+              <div class="cart-button d-flex justify-content-between align-items-center">
+                <a href="#" class="btn-wrap cart-link d-flex align-items-center text-capitalize fs-6 ">add to cart <i
+                    class="icon icon-arrow-io pe-1"></i>
+                </a>
+                <a href="single-product.html" class="view-btn mt-1">
+                  <i class="icon icon-screen-full"></i>
+                </a>
+                <a href="#" class="wishlist-btn mt-1">
+                  <i class="icon icon-heart"></i>
+                </a>
+              </div>
+            </div>
+            <div class="product-detail d-flex justify-content-between align-items-center mt-2">
+              <a href="single-product.html">
+                <h5 class="product-title mb-0"> Product Sample </h5>
+              </a>
+              <p class="m-0 fs-5 fw-normal">$40.00</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 my-4">
+
+          <div class="product-item position-relative">
+            <div class="z-1 position-absolute rounded-3 m-3 px-3 bg-primary text-white">
+              Sale
+            </div>
+            <div class="image-holder">
+              <img src="{% static 'img/product-item13.jpg' %}" alt="Books" class="product-image img-fluid">
+            </div>
+            <div class="cart-concern">
+              <div class="cart-button d-flex justify-content-between align-items-center">
+                <a href="#" class="btn-wrap cart-link d-flex align-items-center text-capitalize fs-6 ">add to cart <i
+                    class="icon icon-arrow-io pe-1"></i>
+                </a>
+                <a href="single-product.html" class="view-btn mt-1">
+                  <i class="icon icon-screen-full"></i>
+                </a>
+                <a href="#" class="wishlist-btn mt-1">
+                  <i class="icon icon-heart"></i>
+                </a>
+              </div>
+            </div>
+            <div class="product-detail d-flex justify-content-between align-items-center mt-2">
+              <a href="single-product.html">
+                <h5 class="product-title mb-0"> Product Sample </h5>
+              </a>
+              <p class="m-0 fs-5 fw-normal">$40.00</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 my-4">
+          <div class="product-item">
+            <div class="image-holder">
+              <img src="{% static 'img/product-item1.jpg' %}" alt="Books" class="product-image img-fluid">
+            </div>
+            <div class="cart-concern">
+              <div class="cart-button d-flex justify-content-between align-items-center">
+                <a href="#" class="btn-wrap cart-link d-flex align-items-center text-capitalize fs-6 ">add to cart <i
+                    class="icon icon-arrow-io pe-1"></i>
+                </a>
+                <a href="single-product.html" class="view-btn mt-1">
+                  <i class="icon icon-screen-full"></i>
+                </a>
+                <a href="#" class="wishlist-btn mt-1">
+                  <i class="icon icon-heart"></i>
+                </a>
+              </div>
+            </div>
+            <div class="product-detail d-flex justify-content-between align-items-center mt-2">
+              <a href="single-product.html">
+                <h5 class="product-title mb-0"> Product Sample </h5>
+              </a>
+              <p class="m-0 fs-5 fw-normal">$40.00</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 my-4">
+          <div class="product-item">
+            <div class="image-holder">
+              <img src="{% static 'img/product-item5.jpg' %}" alt="Books" class="product-image img-fluid">
+            </div>
+            <div class="cart-concern">
+              <div class="cart-button d-flex justify-content-between align-items-center">
+                <a href="#" class="btn-wrap cart-link d-flex align-items-center text-capitalize fs-6 ">add to cart <i
+                    class="icon icon-arrow-io pe-1"></i>
+                </a>
+                <a href="single-product.html" class="view-btn mt-1">
+                  <i class="icon icon-screen-full"></i>
+                </a>
+                <a href="#" class="wishlist-btn mt-1">
+                  <i class="icon icon-heart"></i>
+                </a>
+              </div>
+            </div>
+            <div class="product-detail d-flex justify-content-between align-items-center mt-2">
+              <a href="single-product.html">
+                <h5 class="product-title mb-0"> Product Sample </h5>
+              </a>
+              <p class="m-0 fs-5 fw-normal">$40.00</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 my-4">
+          <div class="product-item position-relative">
+            <div class="z-1 position-absolute rounded-3 m-3 px-3 bg-primary text-white">
+              Sold
+            </div>
+            <div class="image-holder">
+              <img src="{% static 'img/product-item12.jpg' %}" alt="Books" class="product-image img-fluid">
+            </div>
+            <div class="cart-concern">
+              <div class="cart-button d-flex justify-content-between align-items-center">
+                <a href="#" class="btn-wrap cart-link d-flex align-items-center text-capitalize fs-6 ">add to cart <i
+                    class="icon icon-arrow-io pe-1"></i>
+                </a>
+                <a href="single-product.html" class="view-btn mt-1">
+                  <i class="icon icon-screen-full"></i>
+                </a>
+                <a href="#" class="wishlist-btn mt-1">
+                  <i class="icon icon-heart"></i>
+                </a>
+              </div>
+            </div>
+            <div class="product-detail d-flex justify-content-between align-items-center mt-2">
+              <a href="single-product.html">
+                <h5 class="product-title mb-0"> Product Sample </h5>
+              </a>
+              <p class="m-0 fs-5 fw-normal">$40.00</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 my-4">
+          <div class="product-item">
+            <div class="image-holder">
+              <img src="{% static 'img/product-item16.jpg' %}" alt="Books" class="product-image img-fluid">
+            </div>
+            <div class="cart-concern">
+              <div class="cart-button d-flex justify-content-between align-items-center">
+                <a href="#" class="btn-wrap cart-link d-flex align-items-center text-capitalize fs-6 ">add to cart <i
+                    class="icon icon-arrow-io pe-1"></i>
+                </a>
+                <a href="single-product.html" class="view-btn mt-1">
+                  <i class="icon icon-screen-full"></i>
+                </a>
+                <a href="#" class="wishlist-btn mt-1">
+                  <i class="icon icon-heart"></i>
+                </a>
+              </div>
+            </div>
+            <div class="product-detail d-flex justify-content-between align-items-center mt-2">
+              <a href="single-product.html">
+                <h5 class="product-title mb-0"> Product Sample </h5>
+              </a>
+              <p class="m-0 fs-5 fw-normal">$40.00</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-5 pt-4">
+        <button type="submit" class="btn btn-primary">View All Products</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="register"
+    style="background-image:url({% static 'img/background-img.jpg' %}); background-repeat: no-repeat; background-position: center;">
+    <div class="container padding-medium" data-aos="fade-up">
+      <div class="row banner-content justify-content-center align-items-center">
+        <div class="col-md-6">
+          <h2 class="display-2">Get <span> <em>20% OFF</em> </span> on your first purchase</h2>
+          <p class="m-0">Sign Up for our newsletter and never miss any offers</p>
+        </div>
+        <div class="col-md-4">
+          <form>
+            <div class="mb-3">
+              <input type="email" class="form-control form-control-lg rounded-3 text-center bg-light" name="email"
+                id="email" placeholder="Enter Your Email Address">
+            </div>
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary btn-lg rounded-3">Register now</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="best-seller" class="product-store">
+    <div class="container padding-medium" data-aos="fade-up">
+      <h2 class="display-5 fw-light text-uppercase text-center">Best Sellers</h2>
+      <p class="text-center mb-4">Elevate your daily looks with our best sellers</p>
+      <div class="row">
+        <div class="col-md-6 col-lg-3 my-4">
+          <div class="product-item">
+            <div class="image-holder" style="width: 100%; height: 100%;">
+              <img src="{% static 'img/product-item2.jpg' %}" alt="Books" class="product-image img-fluid">
+            </div>
+            <div class="cart-concern">
+              <div class="cart-button d-flex justify-content-between align-items-center">
+                <a href="#" class="btn-wrap cart-link d-flex align-items-center text-capitalize fs-6 ">add to cart <i
+                    class="icon icon-arrow-io pe-1"></i>
+                </a>
+                <a href="single-product.html" class="view-btn mt-1">
+                  <i class="icon icon-screen-full"></i>
+                </a>
+                <a href="#" class="wishlist-btn mt-1">
+                  <i class="icon icon-heart"></i>
+                </a>
+              </div>
+            </div>
+            <div class="product-detail d-flex justify-content-between align-items-center mt-2">
+              <a href="single-product.html">
+                <h5 class="product-title mb-0"> Product Sample </h5>
+              </a>
+              <p class="m-0 fs-5 fw-normal">$40.00</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 my-4">
+
+          <div class="product-item position-relative">
+            <div class="z-1 position-absolute rounded-3 m-3 px-3 py-0 fs-6 bg-primary text-white">
+              New
+            </div>
+            <div class="image-holder">
+              <img src="{% static 'img/product-item9.jpg' %}" alt="Books" class="product-image img-fluid">
+            </div>
+            <div class="cart-concern">
+              <div class="cart-button d-flex justify-content-between align-items-center">
+                <a href="#" class="btn-wrap cart-link d-flex align-items-center text-capitalize fs-6 ">add to cart <i
+                    class="icon icon-arrow-io pe-1"></i>
+                </a>
+                <a href="single-product.html" class="view-btn mt-1">
+                  <i class="icon icon-screen-full"></i>
+                </a>
+                <a href="#" class="wishlist-btn mt-1">
+                  <i class="icon icon-heart"></i>
+                </a>
+              </div>
+            </div>
+            <div class="product-detail d-flex justify-content-between align-items-center mt-2">
+              <a href="single-product.html">
+                <h5 class="product-title mb-0"> Product Sample </h5>
+              </a>
+              <p class="m-0 fs-5 fw-normal">$40.00</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 my-4">
+          <div class="product-item">
+            <div class="image-holder">
+              <img src="{% static 'img/product-item10.jpg' %}" alt="Books" class="product-image img-fluid">
+            </div>
+            <div class="cart-concern">
+              <div class="cart-button d-flex justify-content-between align-items-center">
+                <a href="#" class="btn-wrap cart-link d-flex align-items-center text-capitalize fs-6 ">add to cart <i
+                    class="icon icon-arrow-io pe-1"></i>
+                </a>
+                <a href="single-product.html" class="view-btn mt-1">
+                  <i class="icon icon-screen-full"></i>
+                </a>
+                <a href="#" class="wishlist-btn mt-1">
+                  <i class="icon icon-heart"></i>
+                </a>
+              </div>
+            </div>
+            <div class="product-detail d-flex justify-content-between align-items-center mt-2">
+              <a href="single-product.html">
+                <h5 class="product-title mb-0"> Product Sample </h5>
+              </a>
+              <p class="m-0 fs-5 fw-normal">$40.00</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 my-4">
+
+          <div class="product-item position-relative">
+            <div class="z-1 position-absolute rounded-3 m-3 px-3 bg-primary text-white">
+              Sale
+            </div>
+            <div class="image-holder">
+              <img src="{% static 'img/product-item8.jpg' %}" alt="Books" class="product-image img-fluid">
+            </div>
+            <div class="cart-concern">
+              <div class="cart-button d-flex justify-content-between align-items-center">
+                <a href="#" class="btn-wrap cart-link d-flex align-items-center text-capitalize fs-6 ">add to cart <i
+                    class="icon icon-arrow-io pe-1"></i>
+                </a>
+                <a href="single-product.html" class="view-btn mt-1">
+                  <i class="icon icon-screen-full"></i>
+                </a>
+                <a href="#" class="wishlist-btn mt-1">
+                  <i class="icon icon-heart"></i>
+                </a>
+              </div>
+            </div>
+            <div class="product-detail d-flex justify-content-between align-items-center mt-2">
+              <a href="single-product.html">
+                <h5 class="product-title mb-0"> Product Sample </h5>
+              </a>
+              <p class="m-0 fs-5 fw-normal">$40.00</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 my-4">
+          <div class="product-item">
+            <div class="image-holder">
+              <img src="{% static 'img/product-item7.jpg' %}" alt="Books" class="product-image img-fluid">
+            </div>
+            <div class="cart-concern">
+              <div class="cart-button d-flex justify-content-between align-items-center">
+                <a href="#" class="btn-wrap cart-link d-flex align-items-center text-capitalize fs-6 ">add to cart <i
+                    class="icon icon-arrow-io pe-1"></i>
+                </a>
+                <a href="single-product.html" class="view-btn mt-1">
+                  <i class="icon icon-screen-full"></i>
+                </a>
+                <a href="#" class="wishlist-btn mt-1">
+                  <i class="icon icon-heart"></i>
+                </a>
+              </div>
+            </div>
+            <div class="product-detail d-flex justify-content-between align-items-center mt-2">
+              <a href="single-product.html">
+                <h5 class="product-title mb-0"> Product Sample </h5>
+              </a>
+              <p class="m-0 fs-5 fw-normal">$40.00</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 my-4">
+          <div class="product-item">
+            <div class="image-holder">
+              <img src="{% static 'img/product-item4.jpg' %}" alt="Books" class="product-image img-fluid">
+            </div>
+            <div class="cart-concern">
+              <div class="cart-button d-flex justify-content-between align-items-center">
+                <a href="#" class="btn-wrap cart-link d-flex align-items-center text-capitalize fs-6 ">add to cart <i
+                    class="icon icon-arrow-io pe-1"></i>
+                </a>
+                <a href="single-product.html" class="view-btn mt-1">
+                  <i class="icon icon-screen-full"></i>
+                </a>
+                <a href="#" class="wishlist-btn mt-1">
+                  <i class="icon icon-heart"></i>
+                </a>
+              </div>
+            </div>
+            <div class="product-detail d-flex justify-content-between align-items-center mt-2">
+              <a href="single-product.html">
+                <h5 class="product-title mb-0"> Product Sample </h5>
+              </a>
+              <p class="m-0 fs-5 fw-normal">$40.00</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 my-4">
+          <div class="product-item position-relative">
+            <div class="z-1 position-absolute rounded-3 m-3 px-3 bg-primary text-white">
+              Sold
+            </div>
+            <div class="image-holder">
+              <img src="{% static 'img/product-item11.jpg' %}" alt="Books" class="product-image img-fluid">
+            </div>
+            <div class="cart-concern">
+              <div class="cart-button d-flex justify-content-between align-items-center">
+                <a href="#" class="btn-wrap cart-link d-flex align-items-center text-capitalize fs-6 ">add to cart <i
+                    class="icon icon-arrow-io pe-1"></i>
+                </a>
+                <a href="single-product.html" class="view-btn mt-1">
+                  <i class="icon icon-screen-full"></i>
+                </a>
+                <a href="#" class="wishlist-btn mt-1">
+                  <i class="icon icon-heart"></i>
+                </a>
+              </div>
+            </div>
+            <div class="product-detail d-flex justify-content-between align-items-center mt-2">
+              <a href="single-product.html">
+                <h5 class="product-title mb-0"> Product Sample </h5>
+              </a>
+              <p class="m-0 fs-5 fw-normal">$40.00</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 my-4">
+          <div class="product-item">
+            <div class="image-holder">
+              <img src="{% static 'img/product-item3.jpg' %}" alt="Books" class="product-image img-fluid">
+            </div>
+            <div class="cart-concern">
+              <div class="cart-button d-flex justify-content-between align-items-center">
+                <a href="#" class="btn-wrap cart-link d-flex align-items-center text-capitalize fs-6 ">add to cart <i
+                    class="icon icon-arrow-io pe-1"></i>
+                </a>
+                <a href="single-product.html" class="view-btn mt-1">
+                  <i class="icon icon-screen-full"></i>
+                </a>
+                <a href="#" class="wishlist-btn mt-1">
+                  <i class="icon icon-heart"></i>
+                </a>
+              </div>
+            </div>
+            <div class="product-detail d-flex justify-content-between align-items-center mt-2">
+              <a href="single-product.html">
+                <h5 class="product-title mb-0"> Product Sample </h5>
+              </a>
+              <p class="m-0 fs-5 fw-normal">$40.00</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="text-center mt-5 pt-4">
+        <button type="submit" class="btn btn-primary">View All Products</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials bg-primary padding-medium"
+    style="background-image:url({% static 'img/background-img1.jpg' %}); background-repeat: no-repeat; background-position: center;">
+    <div class="swiper testimonial-swiper overflow-hidden" data-aos="fade-up">
+      <div class="swiper-wrapper d-flex">
+        <div class="swiper-slide">
+          <div class="testimonial-item text-center">
+            <blockquote>
+              <p>“This skincare serum completely transformed my complexion. My skin has never felt more hydrated and
+                radiant!”</p>
+              <div class="review-title mt-3 text-uppercase text-center">- Glowing Results</div>
+            </blockquote>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="testimonial-item text-center">
+            <blockquote>
+              <p>“The foundation provides perfect coverage while feeling lightweight. It's become my daily essential.”
+              </p>
+              <div class="review-title mt-3 text-uppercase text-center">- Sophia</div>
+            </blockquote>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="testimonial-item text-center">
+            <blockquote>
+              <p>“The fragrance lasts all day and I constantly receive compliments. Absolutely worth every penny!”</p>
+              <div class="review-title mt-3 text-uppercase text-center">- Signature Scent</div>
+            </blockquote>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="testimonial-item text-center">
+            <blockquote>
+              <p>“These products are cruelty-free and actually deliver visible results. My new beauty ritual!”</p>
+              <div class="review-title mt-3 text-uppercase text-center">- Emma</div>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="service" class="padding-medium">
+    <div class="container" data-aos="fade-up">
+      <div class="row">
+        <div class="col-md-3 my-3">
+          <div class="card">
+            <div>
+              <iconify-icon class="service-icon text-primary display-4" icon="ci:shopping-cart-02"></iconify-icon>
+            </div>
+            <h4 class=" text-uppercase py-3 m-0">Free Delivery</h3>
+              <div class="card-text">
+                <p>Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-3 my-3">
+          <div class="card">
+            <div>
+              <iconify-icon class="service-icon text-primary display-4" icon="tdesign:secured"></iconify-icon>
+            </div>
+            <h4 class=" text-uppercase py-3 m-0">100% secure payment</h3>
+              <div class="card-text">
+                <p>Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-3 my-3">
+          <div class="card">
+            <div>
+              <iconify-icon class="service-icon text-primary display-4" icon="la:award"></iconify-icon>
+            </div>
+            <h4 class=" text-uppercase py-3 m-0">Quality guarantee</h3>
+              <div class="card-text">
+                <p>Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-3 my-3">
+          <div class="card">
+            <div>
+              <iconify-icon class="service-icon text-primary display-4" icon="solar:dollar-outline"></iconify-icon>
+            </div>
+            <h4 class=" text-uppercase py-3 m-0">Daily Offer</h3>
+              <div class="card-text">
+                <p>Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+              </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div id="blog" class="padding-medium pt-0">
+    <div class="container" data-aos="fade-up">
+      <div class="section-header d-md-flex justify-content-between align-items-center mb-3">
+        <h2 class="display-5 fw-light text-uppercase">Recent Blog Post</h2>
+        <div>
+          <a href="blog.html" class="btn btn-primary">
+            Read Blog</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 my-4" data-aos="fade-up" data-aos-delay="300">
+          <div class="card position-relative">
+            <div class="z-1 position-absolute m-2 px-3 pt-1">
+              <h2 class="text-light display-4 m-0">20<span class="fs-4">MAR</span> </h2>
+            </div>
+            <a href="single-post.html"><img src="{% static 'img/blog5.jpg' %}" class="img-fluid" alt="Summer skincare routine"></a>
+            <div class="card-body p-0">
+              <a href="single-post.html">
+                <h3 class="pt-4 pb-3 m-0">10 Essential Summer Skincare Tips</h3>
+              </a>
+              <div class="card-text">
+                <p>Protect your skin from sun damage while maintaining that healthy glow. Discover our
+                  expert-recommended summer skincare routine that will keep your complexion radiant all season long.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 my-4" data-aos="fade-up" data-aos-delay="600">
+          <div class="card position-relative">
+            <div class="z-1 position-absolute m-2 px-3 pt-1">
+              <h2 class="text-light display-4 m-0">21<span class="fs-4">MAR</span> </h2>
+            </div>
+            <a href="single-post.html"><img src="{% static 'img/blog2.jpg' %}" class="img-fluid"
+                alt="Affordable beauty products"></a>
+            <div class="card-body p-0">
+              <a href="single-post.html">
+                <h3 class="pt-4 pb-3 m-0">Luxury Beauty Brands on a Budget</h3>
+              </a>
+              <div class="card-text">
+                <p>You don't need to break the bank for premium beauty results. We've curated the best affordable
+                  alternatives to high-end products that deliver exceptional quality without the luxury price tag.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 my-4" data-aos="fade-up" data-aos-delay="900">
+          <div class="card position-relative">
+            <div class="z-1 position-absolute m-2 px-3 pt-1">
+              <h2 class="text-light display-4 m-0">22<span class="fs-4">MAR</span> </h2>
+            </div>
+            <a href="single-post.html"><img src="{% static 'img/blog1.jpg' %}" class="img-fluid" alt="Professional makeup tips"></a>
+            <div class="card-body p-0">
+              <a href="single-post.html">
+                <h3 class="pt-4 pb-3 m-0">Pro Makeup Artist Secrets Revealed</h3>
+              </a>
+              <div class="card-text">
+                <p>Learn the techniques that professional makeup artists use to create flawless looks. From foundation
+                  application to perfect winged eyeliner, master these skills for everyday glamour.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer id="footer" class="bg-primary padding-medium">
+    <div class="container text-light ">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="footer-menu">
+            <img src="{% static 'img/logo.png' %}" alt="logo">
+            <p class="mt-4">Find and Define Your Perfect Beauty</p>
+            <div class="social-links mt-4">
+              <ul class="d-flex list-unstyled gap-3">
+                <li class="social">
+                  <a href="#">
+                    <iconify-icon class="social-icon text-light fs-4 me-4" icon="ri:facebook-fill"></iconify-icon>
+                  </a>
+                </li>
+                <li class="social">
+                  <a href="#">
+                    <iconify-icon class="social-icon text-light fs-4 me-4" icon="ri:twitter-fill"></iconify-icon>
+                  </a>
+                </li>
+                <li class="social">
+                  <a href="#">
+                    <iconify-icon class="social-icon text-light fs-4 me-4" icon="ri:pinterest-fill"></iconify-icon>
+                  </a>
+                </li>
+                <li class="social">
+                  <a href="#">
+                    <iconify-icon class="social-icon text-light fs-4 me-4" icon="ri:instagram-fill"></iconify-icon>
+                  </a>
+                </li>
+                <li class="social">
+                  <a href="#">
+                    <iconify-icon class="social-icon text-light fs-4 me-4" icon="ri:youtube-fill"></iconify-icon>
+                  </a>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="footer-menu">
+            <h6 class="text-uppercase fw-bold text-light mb-4">Quick Links</h6>
+            <ul class="menu-list list-unstyled">
+              <li class="menu-item">
+                <a href="#" class="footer-link">Home</a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="footer-link">About us</a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="footer-link">Offer </a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="footer-link">Services</a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="footer-link">Conatct Us</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="footer-menu">
+            <h6 class="text-uppercase fw-bold text-light mb-4">About</h6>
+            <ul class="menu-list list-unstyled">
+              <li class="menu-item">
+                <a href="#" class="footer-link">How It Work</a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="footer-link">Our Packages</a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="footer-link">promotions</a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="footer-link">refer a friend</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="footer-menu">
+            <h6 class="text-uppercase fw-bold text-light mb-4">Services</h6>
+            <ul class="menu-list list-unstyled">
+              <li class="menu-item">
+                <a href="#" class="footer-link">Payments</a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="footer-link">Shipping</a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="footer-link">Product returns </a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="footer-link">FAQs</a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="footer-link">Checkout</a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="footer-link">other Issues</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="footer-menu">
+            <h6 class="text-uppercase fw-bold text-light mb-4">Help Center</h6>
+            <ul class="menu-list list-unstyled">
+              <li class="menu-item">
+                <a href="#" class="footer-link">Payments</a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="footer-link">Shipping</a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="footer-link">Product returns </a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="footer-link">FAQs</a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="footer-link">Checkout</a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="footer-link">other Issues</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="footer-bottom" class="bg-primary">
+    <hr class="text-light m-0">
+    <div class="container text-light pt-3">
+      <div class="row">
+        <div class="col-md-6 copyright">
+          <p>© 2025 AURA. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <p>Template by: <a href="https://templatesjungle.com/" target="_blank"
+              class="text-light text-decoration-underline"> TemplatesJungle</a> </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}
