@@ -171,12 +171,16 @@
   </div>
 
 
+  {% include "header.html" %}
+
 
     {% block content %}
 
 
 
     {% endblock %}
+
+  {% include "footer.html" %}
 
 
   <script src="{% static 'js/jquery-1.11.0.min.js' %}"></script>
