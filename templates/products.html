@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="products-hero" style="background-image: url({% static 'img/background-img1.jpg' %});">
+  <h2>Our Products</h2>
+  <p>Explore our collection of high-quality cosmetics, carefully curated to enhance your natural beauty.</p>
+</section>
+
+{% for category in categories %}
+<section class="category-section">
+  <h3 class="category-title">{{ category.name }}</h3>
+  <div class="product-grid">
+    {% for product in category.products.all|slice:":6" %}
+    <div class="product-card">
+      <img src="{{ product.image.url }}" alt="{{ product.name }}">
+      <h4>{{ product.name }}</h4>
+      <a href="{% url 'product-detail' product.slug %}" class="btn-see-more">See More</a>
+    </div>
+    {% endfor %}
+  </div>
+  {% if category.products.count > 6 %}
+  <div class="show-more-container">
+    <a href="{% url 'category_detail' category.slug %}" class="btn-show-more">Show More</a>
+  </div>
+  {% endif %}
+</section>
+{% endfor %}
+
+{% endblock content %}

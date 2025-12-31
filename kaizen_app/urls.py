@@ -10,5 +10,6 @@ urlpatterns = [
     path("blog/", views.BlogView.as_view(), name="blog"),
     path("blog-single/", views.BlogSingleView.as_view(), name="blog-single"),
     path("shop/", views.ShopView.as_view(), name="shop"),
-    path("product/", views.ProductView.as_view(), name="product"),
+    path("products/", views.ProductListView.as_view(), name="products"),
+    path("product/<slug:slug>/", views.ProductDetailView.as_view(), name="product-detail"),
 ]

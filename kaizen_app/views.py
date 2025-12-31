@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView, DetailView
+from .models import Category, Product
 from django.http import JsonResponse
 from django.views import View
 from kaizen_app.forms import ContactForm
@@ -63,9 +64,21 @@ class ShopView(TemplateView):
     def shop(request):
         return render(request, 'shop.html')
 
-class ProductView(TemplateView):
-    template_name = "product.html"
 
-    def product(request):
-        return render(request, 'product.html')
+class ProductListView(ListView):
+    model = Category
+    template_name = 'products.html'
+    context_object_name = 'categories'
+
+    # Prefetch related products for efficiency
+    def get_queryset(self):
+        return Category.objects.prefetch_related('products').all()
+
+
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'product_detail.html'
+    context_object_name = 'product'
+    slug_field = 'slug'
+    slug_url_kwarg = 'slug'
 

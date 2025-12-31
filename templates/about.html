@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="about-hero" style="background-image: url({% static 'img/background-img1.jpg' %});">
+  <h2>About Our Brand</h2>
+  <p>We believe in beauty that shines from within. Our cosmetic products are made with the finest ingredients to bring out your natural glow and empower confidence.</p>
+</section>
+
+<!-- New Introduction Section -->
+<section class="about-intro">
+  <div class="intro-image">
+    <img src="{% static 'img/about-intro.jpg' %}" alt="Cosmetic Shop Image" />
+  </div>
+  <div class="intro-text">
+    <h3>Welcome to Our Cosmetic Shop</h3>
+    <p>Founded in 2010, our brand has been committed to offering premium quality cosmetics that enhance your natural beauty. Over the years, we've grown by embracing innovation and sustainability, always putting our customers first.</p>
+    <p>Our goal is to empower confidence and self-expression through products that are cruelty-free, eco-friendly, and crafted with care.</p>
+  </div>
+</section>
+
+<section class="about-cards">
+  <div class="card" style="animation-delay: 0.2s">
+    <h3>Our Mission</h3>
+    <p>To provide high-quality, cruelty-free cosmetics that make everyone feel beautiful and confident in their skin.</p>
+  </div>
+  <div class="card" style="animation-delay: 0.4s">
+    <h3>Our Vision</h3>
+    <p>To become a globally recognized cosmetic brand known for innovation, sustainability, and ethical beauty practices.</p>
+  </div>
+  <div class="card" style="animation-delay: 0.6s">
+    <h3>Our Values</h3>
+    <p>Quality, authenticity, sustainability, and inclusivity guide every product we create and every decision we make.</p>
+  </div>
+</section>
+
+<script>
+  // Fade in cards on scroll
+  const cards = document.querySelectorAll('.about-cards .card');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = 1;
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.2 });
+
+  cards.forEach(card => observer.observe(card));
+</script>
+
+{% endblock content %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="product-detail">
+  <div class="product-detail-container">
+    <div class="product-image">
+      <img src="{{ product.image.url }}" alt="{{ product.name }}">
+    </div>
+    <div class="product-info">
+      <h2>{{ product.name }}</h2>
+      <p>{{ product.description }}</p>
+      <p class="price">Price: ${{ product.price }}</p>
+      <a href="#" class="btn">Add to Cart</a>
+    </div>
+  </div>
+</section>
+{% endblock content %}

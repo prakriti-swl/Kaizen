@@ -3,9 +3,11 @@
 
 {% block content %}
 <!-- Title Page -->
-<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url({% static 'img/blog6.jpg' %}); ">
-    <h2 class="tit6 t-center">Contact</h2>
+<section class="bg-title-page contact-hero"
+    style="background-image: url({% static 'img/background-img1.jpg' %});">
+    <h2 class="contact-title">Contact</h2>
 </section>
+
 
 <!-- Contact form -->
 <section class="section-contact bg1-pattern p-t-90 p-b-113">
@@ -19,6 +21,7 @@
 
     <!-- Leaflet MAP CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <br>
 
     <style>
         #google_map {
@@ -42,6 +45,82 @@
         }
         #toast.success { background-color: green; }
         #toast.error { background-color: red; }
+
+        /* ===== CONTACT HERO FIX ===== */
+        .contact-hero {
+            height: 400px !important;
+            width: 100%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            position: relative;
+        }
+
+        .contact-hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            z-index: 1;
+        }
+
+        .contact-title {
+            font-size: 54px !important;
+            font-weight: 700 !important;
+            color: #ffffff !important;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        .section-contact .wrap-form-reservation {
+            max-width: 1100px !important;
+            margin: 0 auto !important;
+        }
+
+        .section-contact .row {
+            row-gap: 25px;
+        }
+
+        .section-contact .wrap-inputname,
+        .section-contact .wrap-inputemail,
+        .section-contact .wrap-inputphone {
+            width: 100% !important;
+        }
+
+        .section-contact input,
+        .section-contact textarea {
+            width: 100% !important;
+            padding: 14px 18px !important;
+            font-size: 15px !important;
+            border-radius: 10px !important;
+        }
+
+        .section-contact textarea {
+            min-height: 160px !important;
+            resize: none;
+            border-radius: 10px !important;
+        }
+
+        .section-contact .wrap-btn-booking {
+            margin-top: 30px !important;
+            margin-bottom: 30px !important;
+        }
+
+        .section-contact .btn3 {
+            border-radius: 10px !important;
+            overflow: hidden;
+        }
+
+        .section-contact .btn3::before,
+        .section-contact .btn3::after {
+            border-radius: 10px !important;
+        }
+
+
     </style>
 
     <!-- Leaflet JS -->
@@ -78,27 +157,27 @@
                 <div class="col-md-4">
                     <span class="txt9">Name</span>
                     <div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
-                        <input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="name" id="id_name" placeholder="Name" required>
+                        <input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="name" id="id_name" placeholder="Name" required autocomplete="off">
                     </div>
                 </div>
 
                 <div class="col-md-4">
                     <span class="txt9">Email</span>
                     <div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-                        <input class="bo-rad-10 sizefull txt10 p-l-20" type="email" name="email" id="id_email" placeholder="Email" required>
+                        <input class="bo-rad-10 sizefull txt10 p-l-20" type="email" name="email" id="id_email" placeholder="Email" required autocomplete="off">
                     </div>
                 </div>
 
                 <div class="col-md-4">
                     <span class="txt9">Phone</span>
                     <div class="wrap-inputphone size12 bo2 bo-rad-10 m-t-3 m-b-23">
-                        <input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="phone" id="id_phone" placeholder="Phone" required>
+                        <input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="phone" id="id_phone" placeholder="Phone" required autocomplete="off">
                     </div>
                 </div>
 
                 <div class="col-12">
                     <span class="txt9">Message</span>
-                    <textarea class="bo-rad-10 size35 bo2 txt10 p-l-20 p-t-15 m-b-10 m-t-3" name="message" id="id_message" placeholder="Message" required></textarea>
+                    <textarea class="bo-rad-10 size35 bo2 txt10 p-l-20 p-t-15 m-b-10 m-t-3" name="message" id="id_message" placeholder="Message" required autocomplete="off"></textarea>
                 </div>
             </div>
 

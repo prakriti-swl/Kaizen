@@ -182,6 +182,36 @@
 
   {% include "footer.html" %}
 
+  <!-- Back to top -->
+	<div class="btn-back-to-top " id="myBtn">
+		<span class="symbol-btn-back-to-top">
+      <iconify-icon icon="mdi:chevron-double-up" style="font-size:22px;"></iconify-icon>
+    </span>
+
+	</div>
+
+
+  {% comment %} <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const backToTop = document.getElementById("myBtn");
+
+        window.addEventListener("scroll", function () {
+            if (window.scrollY > 300) {
+                backToTop.style.display = "flex";
+            } else {
+                backToTop.style.display = "none";
+            }
+        });
+
+        backToTop.addEventListener("click", function () {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+    });
+  </script> {% endcomment %}
+
 
   <script src="{% static 'js/jquery-1.11.0.min.js' %}"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>

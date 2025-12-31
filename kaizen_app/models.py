@@ -10,8 +10,30 @@ class TimeStampModel(models.Model):
         abstract = True
 
 
-class Category(TimeStampModel):
-    name = models.CharField(max_length = 100)
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True, blank=True, null=True)  
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+class Product(models.Model):
+    name = models.CharField(max_length=200)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
+    description = models.TextField()
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)  # allow null
+    image = models.ImageField(upload_to='products/')
+    slug = models.SlugField(unique=True, blank=True, null=True)  # allow null
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
