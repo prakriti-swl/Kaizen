@@ -10,25 +10,37 @@ class TimeStampModel(models.Model):
         abstract = True
 
 
-class Category(models.Model):
-    name = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True, blank=True, null=True)  
+from django.db import models
+from django.template.defaultfilters import slugify
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)
-        super().save(*args, **kwargs)
+class Category(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.name
 
+
 class Product(models.Model):
+    STATUS_CHOICES = (
+        ('new', 'New'),
+        ('sale', 'Sale'),
+        ('sold', 'Sold'),
+    )
+
     name = models.CharField(max_length=200)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
     description = models.TextField()
-    price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)  # allow null
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     image = models.ImageField(upload_to='products/')
-    slug = models.SlugField(unique=True, blank=True, null=True)  # allow null
+    slug = models.SlugField(unique=True, blank=True, null=True)
+
+    status = models.CharField(
+        max_length=10,
+        choices=STATUS_CHOICES,
+        blank=True,
+        null=True
+    )
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -37,6 +49,8 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+
     
 class Tag(TimeStampModel):
     name = models.CharField(max_length = 100)
