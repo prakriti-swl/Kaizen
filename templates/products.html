@@ -8,33 +8,39 @@
   <p>Explore our collection of high-quality cosmetics.</p>
 </section>
 
+<div class="category-filters">
+  <button class="filter-btn active" data-category="all">All</button>
+
+  {% for category in categories %}
+    <button class="filter-btn" data-category="{{ category.id }}">
+      {{ category.name }}
+    </button>
+  {% endfor %}
+</div>
+
 {% for category in categories %}
-<section class="category-section">
+<section class="category-section" data-category="{{ category.id }}">
   <h3 class="category-title">{{ category.name }}</h3>
 
   <div class="product-grid">
-    {% for product in category.products.all|slice:":6" %}
-    <div class="product-card">
-
+    {% for product in category.products.all %}
+    <div class="product-card product-item">
       {% if product.status %}
         <span class="product-badge {{ product.status }}">
           {{ product.status|title }}
         </span>
       {% endif %}
 
-      <!-- IMAGE (clickable) -->
       <a href="{% url 'product-detail' product.slug %}" class="product-link">
         <div class="product-image" style="background-image: url('{{ product.image.url }}');"></div>
       </a>
 
-      <!-- ACTIONS  -->
       <div class="product-actions">
         <a href="#" title="Add to Cart">🛒</a>
         <a href="{% url 'product-detail' product.slug %}" title="Details">🔍</a>
         <a href="#" title="Wishlist">♡</a>
       </div>
 
-      <!-- INFO -->
       <div class="product-info">
         <div class="product-title-price">
           <a href="{% url 'product-detail' product.slug %}" class="product-name">
@@ -45,16 +51,88 @@
       </div>
 
     </div>
-
     {% endfor %}
   </div>
 
   {% if category.products.count > 6 %}
-  <div class="show-more-container">
-    <a href="{% url 'category_detail' category.slug %}" class="btn-show-more">Show More</a>
-  </div>
+    <div class="show-more-container">
+      <button class="btn-show-more" data-category="{{ category.id }}">
+        Show More
+      </button>
+    </div>
   {% endif %}
 </section>
 {% endfor %}
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const categorySections = document.querySelectorAll(".category-section");
+
+    // Show first 6 products per category
+    function showAllCategories() {
+        categorySections.forEach(section => {
+            section.style.display = "block";
+            const products = section.querySelectorAll(".product-card");
+            const showMoreBtn = section.querySelector(".btn-show-more");
+
+            products.forEach((product, index) => {
+                product.style.display = index < 6 ? "block" : "none";
+            });
+
+            if (showMoreBtn) showMoreBtn.style.display = (products.length > 6) ? "inline-block" : "none";
+        });
+    }
+
+    // Show all products of a single category
+    function showSingleCategory(categoryId) {
+        categorySections.forEach(section => {
+            const products = section.querySelectorAll(".product-card");
+            const showMoreBtn = section.querySelector(".btn-show-more");
+
+            if (section.dataset.category === categoryId) {
+                section.style.display = "block";
+                products.forEach(product => product.style.display = "block"); // show all products
+                if (showMoreBtn) showMoreBtn.style.display = "none"; // hide show more
+            } else {
+                section.style.display = "none";
+            }
+        });
+    }
+
+    // FILTER BUTTONS
+    filterButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            filterButtons.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+
+            const category = btn.dataset.category;
+            if (category === "all") {
+                showAllCategories();
+            } else {
+                showSingleCategory(category);
+            }
+        });
+    });
+
+    // SHOW MORE BUTTONS
+    document.querySelectorAll(".btn-show-more").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const category = btn.dataset.category;
+
+            filterButtons.forEach(b => b.classList.toggle("active", b.dataset.category === category));
+
+            showSingleCategory(category);
+        });
+    });
+
+    // Initialize
+    showAllCategories();
+});
+</script>
+
+
 
 {% endblock %}

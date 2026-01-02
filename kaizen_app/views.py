@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, ListView, DetailView
-from .models import Category, Product
+from .models import Category, Product, Review
 from django.http import JsonResponse
 from django.views import View
-from kaizen_app.forms import ContactForm
+from kaizen_app.forms import ContactForm, ReviewForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 class HomeView(TemplateView):
@@ -74,11 +75,32 @@ class ProductListView(ListView):
     def get_queryset(self):
         return Category.objects.prefetch_related('products').all()
 
-
 class ProductDetailView(DetailView):
     model = Product
     template_name = 'product_detail.html'
     context_object_name = 'product'
     slug_field = 'slug'
     slug_url_kwarg = 'slug'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['review_form'] = ReviewForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = ReviewForm(request.POST)
+
+        if form.is_valid():
+            Review.objects.update_or_create(
+                product=self.object,
+                user=request.user,
+                defaults={
+                    'rating': form.cleaned_data['rating'],
+                    'comment': form.cleaned_data['comment']
+                }
+            )
+
+        return redirect(self.request.path)
+
 

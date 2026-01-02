@@ -3,15 +3,110 @@
 
 {% block content %}
 <section class="product-detail">
-  <div class="product-detail-container">
-    <div class="product-image">
-      <img src="{{ product.image.url }}" alt="{{ product.name }}">
-    </div>
-    <div class="product-info">
-      <h2>{{ product.name }}</h2>
-      <p>{{ product.description }}</p>
-      <p class="price">Price: ${{ product.price }}</p>
-      <a href="#" class="btn">Add to Cart</a>
+  <div class="container">
+    <!-- BACK BUTTON -->
+    <a href="{% url 'products' %}" class="btn btn-outline-secondary" style="position: absolute; top: 20px; right: 20px;">
+      &larr; Back to Products
+    </a>
+    
+    <div class="product-detail-container">
+
+      <!-- LEFT : PRODUCT IMAGE -->
+      <div class="product-detail-image">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+      </div>
+
+      <!-- RIGHT : PRODUCT INFO -->
+      <div class="product-info-detail">
+
+        <!-- NAME -->
+        <h2 class="product-detail-name">{{ product.name }}</h2>
+
+        <!-- AVERAGE RATING -->
+        <div class="stars">
+          {% for i in "12345" %}
+            {% if forloop.counter <= product.average_rating %}
+              ★
+            {% else %}
+              ☆
+            {% endif %}
+          {% endfor %}
+          <span>({{ product.reviews.count }} reviews)</span>
+        </div>
+
+        <!-- PRICE -->
+        <div class="price-box">
+          {% if product.sale_price %}
+            <span class="original-price">${{ product.price }}</span>
+            <span class="sale-price">${{ product.sale_price }}</span>
+          {% else %}
+            <span class="sale-price">${{ product.price }}</span>
+          {% endif %}
+        </div>
+
+        <!-- DESCRIPTION -->
+        <p class="description">
+          {{ product.description }}
+        </p>
+
+        <!-- ACTIONS -->
+        <div class="product-actions">
+          <a href="#" class="btn">Add to Cart</a>
+          <a href="#" class="btn secondary">Buy Now</a>
+        </div>
+
+        <!-- REVIEWS -->
+        <div class="review-section">
+          <h3>Customer Reviews</h3>
+
+          {% for review in product.reviews.all %}
+          <div class="review">
+            <img src="{% static 'images/user.png' %}" class="review-avatar" alt="User">
+            <div class="review-content">
+              <div class="review-header">
+                <strong>{{ review.user.username }}</strong>
+                <span class="stars">
+                  {% for i in "12345" %}
+                    {% if forloop.counter <= review.rating %}
+                      ★
+                    {% else %}
+                      ☆
+                    {% endif %}
+                  {% endfor %}
+                </span>
+              </div>
+              <p>{{ review.comment }}</p>
+              <small>{{ review.created_at|date:"M d, Y" }}</small>
+            </div>
+          </div>
+          {% empty %}
+            <p>No reviews yet. Be the first to review this product.</p>
+          {% endfor %}
+
+          <!-- WRITE REVIEW -->
+          {% if user.is_authenticated %}
+          <div class="write-review">
+            <h4>Write a Review</h4>
+            <form method="POST">
+              {% csrf_token %}
+              <div class="form-group">
+                {{ review_form.rating.label_tag }}
+                {{ review_form.rating }}
+              </div>
+              <div class="form-group">
+                {{ review_form.comment.label_tag }}
+                {{ review_form.comment }}
+              </div>
+              <button type="submit" class="btn">Submit Review</button>
+            </form>
+          </div>
+          {% else %}
+            <p>
+              <a href="{% url 'login' %}">Login</a> to write a review.
+            </p>
+          {% endif %}
+        </div>
+      </div>
     </div>
   </div>
 </section>
