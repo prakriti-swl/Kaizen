@@ -1,38 +1,51 @@
 {% load static %}
 
 <section id="category">
-    <div class="container-fluid px-3 px-md-5">
-      <div class="row">
-        <div class="col-md-4 position-relative" data-aos="fade-up" data-aos-delay="300">
-          <div class="z-1 position-absolute bottom-0 start-0 m-3 m-lg-5 ps-4 text-white">
+  <div class="container-fluid px-3 px-md-5">
+    <div class="row">
+
+      <div class="col-md-4 position-relative">
+        <a href="{% url 'products' %}?category=1#products-start" class="d-block text-decoration-none">
+
+          <div class="z-1 position-absolute bottom-0 start-0 m-3 ps-4 text-white">
             <h3 class="text-light text-uppercase">Skincare Essentials</h3>
           </div>
+
           <div class="image-holder zoom-effect">
-            <a href="single-post.html">
-              <img src="{% static 'img/category1.jpg' %}" alt="Luxury skincare products" class="post-image img-fluid">
-            </a>
+            <img src="{% static 'img/category1.jpg' %}" class="img-fluid">
           </div>
-        </div>
-        <div class="col-md-4 position-relative" data-aos="fade-up" data-aos-delay="600">
-          <div class="z-1 position-absolute bottom-0 start-0 m-3 m-lg-5 ps-4 text-white">
+
+        </a>
+      </div>
+
+      <div class="col-md-4 position-relative">
+        <a href="{% url 'products' %}?category=2#products-start" class="d-block text-decoration-none">
+
+          <div class="z-1 position-absolute bottom-0 start-0 m-3 ps-4 text-white">
             <h3 class="text-light text-uppercase">Makeup Collection</h3>
           </div>
+
           <div class="image-holder zoom-effect">
-            <a href="single-post.html">
-              <img src="{% static 'img/category3.jpg' %}" alt="Premium makeup products" class="post-image img-fluid">
-            </a>
+            <img src="{% static 'img/category3.jpg' %}" class="img-fluid">
           </div>
-        </div>
-        <div class="col-md-4 position-relative" data-aos="fade-up" data-aos-delay="900">
-          <div class="z-1 position-absolute bottom-0 start-0 m-3 m-lg-5 ps-4 text-white">
+
+        </a>
+      </div>
+
+      <div class="col-md-4 position-relative">
+        <a href="{% url 'products' %}?category=3#products-start" class="d-block text-decoration-none">
+
+          <div class="z-1 position-absolute bottom-0 start-0 m-3 ps-4 text-white">
             <h3 class="text-light text-uppercase">Fragrance & Scents</h3>
           </div>
+
           <div class="image-holder zoom-effect">
-            <a href="single-post.html">
-              <img src="{% static 'img/category2.jpg'%}" alt="Luxury perfume bottles" class="post-image img-fluid">
-            </a>
+            <img src="{% static 'img/category2.jpg' %}" class="img-fluid">
           </div>
-        </div>
+
+        </a>
       </div>
+
     </div>
-  </section>
+  </div>
+</section>

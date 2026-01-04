@@ -103,4 +103,12 @@ class ProductDetailView(DetailView):
 
         return redirect(self.request.path)
 
+class NewArrivalView(TemplateView):
+    template_name = 'new_arrival.html'
+
+    def get(self, request, *args, **kwargs):
+        # Get the 8 most recent products
+        latest_products = Product.objects.order_by('-created_at')[:8]
+        return render(request, self.template_name, {'latest_products': latest_products})
+
 

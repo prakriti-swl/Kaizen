@@ -3,21 +3,25 @@
 
 {% block content %}
 
-<section class="products-hero" style="background-image: url({% static 'img/background-img1.jpg' %});">
+<!-- Products Hero -->
+<section class="products-hero" id="products-start" style="background-image: url({% static 'img/background-img1.jpg' %});">
   <h2>Our Products</h2>
   <p>Explore our collection of high-quality cosmetics.</p>
 </section>
 
+<!-- Category Filter Buttons -->
 <div class="category-filters">
-  <button class="filter-btn active" data-category="all">All</button>
+  <button class="filter-btn {% if not active_category %}active{% endif %}" data-category="all">All</button>
 
   {% for category in categories %}
-    <button class="filter-btn" data-category="{{ category.id }}">
+    <button class="filter-btn {% if active_category == category.id|stringformat:'s' %}active{% endif %}"
+            data-category="{{ category.id }}">
       {{ category.name }}
     </button>
   {% endfor %}
 </div>
 
+<!-- Products Grid -->
 {% for category in categories %}
 <section class="category-section" data-category="{{ category.id }}">
   <h3 class="category-title">{{ category.name }}</h3>
@@ -26,9 +30,7 @@
     {% for product in category.products.all %}
     <div class="product-card product-item">
       {% if product.status %}
-        <span class="product-badge {{ product.status }}">
-          {{ product.status|title }}
-        </span>
+        <span class="product-badge {{ product.status }}">{{ product.status|title }}</span>
       {% endif %}
 
       <a href="{% url 'product-detail' product.slug %}" class="product-link">
@@ -43,96 +45,91 @@
 
       <div class="product-info">
         <div class="product-title-price">
-          <a href="{% url 'product-detail' product.slug %}" class="product-name">
-            {{ product.name }}
-          </a>
+          <a href="{% url 'product-detail' product.slug %}" class="product-name">{{ product.name }}</a>
           <span class="price">${{ product.price }}</span>
         </div>
       </div>
-
     </div>
     {% endfor %}
   </div>
 
   {% if category.products.count > 6 %}
-    <div class="show-more-container">
-      <button class="btn-show-more" data-category="{{ category.id }}">
-        Show More
-      </button>
-    </div>
+  <div class="show-more-container">
+    <button class="btn-show-more" data-category="{{ category.id }}">Show More</button>
+  </div>
   {% endif %}
 </section>
 {% endfor %}
 
-
+<!-- JavaScript -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
     const filterButtons = document.querySelectorAll(".filter-btn");
     const categorySections = document.querySelectorAll(".category-section");
 
-    // Show first 6 products per category
     function showAllCategories() {
         categorySections.forEach(section => {
             section.style.display = "block";
             const products = section.querySelectorAll(".product-card");
             const showMoreBtn = section.querySelector(".btn-show-more");
-
-            products.forEach((product, index) => {
-                product.style.display = index < 6 ? "block" : "none";
-            });
-
+            products.forEach((product, index) => product.style.display = index < 6 ? "block" : "none");
             if (showMoreBtn) showMoreBtn.style.display = (products.length > 6) ? "inline-block" : "none";
         });
     }
 
-    // Show all products of a single category
     function showSingleCategory(categoryId) {
         categorySections.forEach(section => {
             const products = section.querySelectorAll(".product-card");
             const showMoreBtn = section.querySelector(".btn-show-more");
-
             if (section.dataset.category === categoryId) {
                 section.style.display = "block";
-                products.forEach(product => product.style.display = "block"); // show all products
-                if (showMoreBtn) showMoreBtn.style.display = "none"; // hide show more
+                products.forEach(product => product.style.display = "block");
+                if (showMoreBtn) showMoreBtn.style.display = "none";
             } else {
                 section.style.display = "none";
             }
         });
     }
 
-    // FILTER BUTTONS
+    // Filter Buttons
     filterButtons.forEach(btn => {
         btn.addEventListener("click", () => {
             filterButtons.forEach(b => b.classList.remove("active"));
             btn.classList.add("active");
-
             const category = btn.dataset.category;
-            if (category === "all") {
-                showAllCategories();
-            } else {
-                showSingleCategory(category);
-            }
+            category === "all" ? showAllCategories() : showSingleCategory(category);
         });
     });
 
-    // SHOW MORE BUTTONS
+    // Show More Buttons
     document.querySelectorAll(".btn-show-more").forEach(btn => {
         btn.addEventListener("click", () => {
             const category = btn.dataset.category;
-
             filterButtons.forEach(b => b.classList.toggle("active", b.dataset.category === category));
-
             showSingleCategory(category);
         });
     });
 
-    // Initialize
-    showAllCategories();
+    // URL Parameter Filter
+    const params = new URLSearchParams(window.location.search);
+    const categoryFromUrl = params.get("category");
+
+    if (categoryFromUrl) {
+        filterButtons.forEach(b => b.classList.toggle("active", b.dataset.category === categoryFromUrl));
+        showSingleCategory(categoryFromUrl);
+    } else {
+        showAllCategories();
+    }
+
+    // Smooth scroll to anchor if present
+    if (window.location.hash) {
+        const target = document.querySelector(window.location.hash);
+        if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    }
 });
 </script>
-
-
 
 {% endblock %}
