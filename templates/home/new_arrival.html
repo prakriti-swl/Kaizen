@@ -8,13 +8,15 @@
       {% for product in latest_products %}
       <div class="col-md-6 col-lg-3 my-4">
         <div class="product-item position-relative">
-          {% if product.status %}
+          {% if product.status and product.status != 'normal' %}
           <div class="z-1 position-absolute top-0 start-0 rounded-3 m-3 px-3 py-0 fs-6 bg-primary text-white">
             {{ product.status|title }}
           </div>
           {% endif %}
           <div class="image-holder">
-            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image img-fluid">
+            <a href="{% url 'product-detail' product.slug %}">
+              <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image img-fluid">
+            </a>
           </div>
           <div class="cart-concern">
             <div class="cart-button d-flex justify-content-between align-items-center">

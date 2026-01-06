@@ -1,6 +1,6 @@
 from django.utils import timezone as dj_timezone
 from datetime import timedelta
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic import TemplateView, ListView, DetailView
 from .models import Category, Product, Review
 from django.http import JsonResponse
@@ -134,3 +134,50 @@ class NewArrivalView(TemplateView):
 
 
 
+class SubmitReviewView(View):
+    def post(self, request, pk):
+        product = get_object_or_404(Product, pk=pk)
+
+        if request.user.is_authenticated:
+            rating = request.POST.get('rating')
+            comment = request.POST.get('comment')  # matches your form field
+
+            if rating and comment:
+                Review.objects.create(
+                    product=product,
+                    user=request.user,
+                    rating=int(rating),
+                    comment=comment
+                )
+
+        return redirect('product_detail', pk=pk)
+
+
+class LoadMoreReviewsView(View):
+    def get(self, request, pk):
+        offset = int(request.GET.get('offset', 0))
+        LIMIT = 4
+        MAX_REVIEWS = 20
+
+        total_reviews = Review.objects.filter(product_id=pk).count()
+        remaining_allowed = max(0, MAX_REVIEWS - offset)
+        load_count = min(LIMIT, remaining_allowed)
+
+        reviews = Review.objects.filter(product_id=pk)\
+            .order_by('-created_at')[offset:offset + load_count]
+
+        data = []
+        for review in reviews:
+            data.append({
+                'username': review.user.userprofile.username,
+                'image': review.user.userprofile.image.url if hasattr(review.user, 'userprofile') else '',
+                'rating': review.rating,
+                'message': review.comment,  # 🔹 keep 'message' to match JS
+            })
+
+        return JsonResponse({
+            'reviews': data,
+            'loaded_count': offset + len(data),
+            'total_reviews': min(total_reviews, MAX_REVIEWS),
+            'has_more': offset + len(data) < min(total_reviews, MAX_REVIEWS)
+        })

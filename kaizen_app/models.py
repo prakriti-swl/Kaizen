@@ -2,6 +2,8 @@ from django.db import models
 from django.utils.text import slugify
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
 
 # Create your models here.
 class TimeStampModel(models.Model):
@@ -13,7 +15,6 @@ class TimeStampModel(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=200)
-    description = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -21,6 +22,7 @@ class Category(models.Model):
 
 class Product(models.Model):
     STATUS_CHOICES = [
+        ('normal', 'Normal'),
         ('new', 'New'),
         ('sale', 'Sale'),
         ('sold_out', 'Sold Out'),
@@ -110,8 +112,37 @@ class Review(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ('product', 'user')
+        # unique_together = ('product', 'user')
         ordering = ['-created_at']
 
     def __str__(self):
         return f"{self.user} - {self.product} ({self.rating})"
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    username = models.CharField(max_length=150, unique=True)
+    email = models.EmailField(unique=True)  
+    phone = models.CharField(max_length=10, unique=True) 
+    image = models.ImageField(
+        upload_to='profile_images/',
+        null=True,
+        blank=True,
+        default='static/img/default.jpg'
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username}'s profile"
+
+# Automatically create a profile when a user is created
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance, username=instance.username, email=instance.email, phone='') 
+
+# Automatically delete profile when user is deleted
+@receiver(post_delete, sender=User)
+def delete_user_profile(sender, instance, **kwargs):
+    if hasattr(instance, 'userprofile'):
+        instance.userprofile.delete()

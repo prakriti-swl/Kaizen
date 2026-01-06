@@ -2,27 +2,32 @@
 {% load static %}
 
 {% block content %}
+
+<section class="about-hero" style="background-image: url({% static 'img/background-img1.jpg' %});">
+  <h2> Product Details </h2>
+  <p>Know more about our products and their benefits.</p>
+</section>
+
 <section class="product-detail">
   <div class="container">
-    <!-- BACK BUTTON -->
-    <a href="{% url 'products' %}" class="btn btn-outline-secondary" style="position: absolute; top: 20px; right: 20px;">
+
+    <a href="{% url 'products' %}" class="btn btn-outline-secondary"
+       style="position: absolute; top: 20px; right: 20px;">
       &larr; Back to Products
     </a>
-    
+
+    <!-- PRODUCT TOP (IMAGE + DETAILS) -->
     <div class="product-detail-container">
 
-      <!-- LEFT : PRODUCT IMAGE -->
+      <!-- LEFT -->
       <div class="product-detail-image">
-        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image img-fluid">
       </div>
 
-      <!-- RIGHT : PRODUCT INFO -->
+      <!-- RIGHT -->
       <div class="product-info-detail">
-
-        <!-- NAME -->
         <h2 class="product-detail-name">{{ product.name }}</h2>
 
-        <!-- AVERAGE RATING -->
         <div class="stars">
           {% for i in "12345" %}
             {% if forloop.counter <= product.average_rating %}
@@ -34,7 +39,6 @@
           <span>({{ product.reviews.count }} reviews)</span>
         </div>
 
-        <!-- PRICE -->
         <div class="price-box">
           {% if product.sale_price %}
             <span class="original-price">${{ product.price }}</span>
@@ -44,70 +48,107 @@
           {% endif %}
         </div>
 
-        <!-- DESCRIPTION -->
         <p class="description">
           {{ product.description }}
         </p>
 
-        <!-- ACTIONS -->
         <div class="product-actions">
           <a href="#" class="btn">Add to Cart</a>
           <a href="#" class="btn secondary">Buy Now</a>
         </div>
-
-        <!-- REVIEWS -->
-        <div class="review-section">
-          <h3>Customer Reviews</h3>
-
-          {% for review in product.reviews.all %}
-          <div class="review">
-            <img src="{% static 'images/user.png' %}" class="review-avatar" alt="User">
-            <div class="review-content">
-              <div class="review-header">
-                <strong>{{ review.user.username }}</strong>
-                <span class="stars">
-                  {% for i in "12345" %}
-                    {% if forloop.counter <= review.rating %}
-                      ★
-                    {% else %}
-                      ☆
-                    {% endif %}
-                  {% endfor %}
-                </span>
-              </div>
-              <p>{{ review.comment }}</p>
-              <small>{{ review.created_at|date:"M d, Y" }}</small>
-            </div>
-          </div>
-          {% empty %}
-            <p>No reviews yet. Be the first to review this product.</p>
-          {% endfor %}
-
-          <!-- WRITE REVIEW -->
-          {% if user.is_authenticated %}
-          <div class="write-review">
-            <h4>Write a Review</h4>
-            <form method="POST">
-              {% csrf_token %}
-              <div class="form-group">
-                {{ review_form.rating.label_tag }}
-                {{ review_form.rating }}
-              </div>
-              <div class="form-group">
-                {{ review_form.comment.label_tag }}
-                {{ review_form.comment }}
-              </div>
-              <button type="submit" class="btn">Submit Review</button>
-            </form>
-          </div>
-          {% else %}
-            <p>
-              <a href="{% url 'login' %}">Login</a> to write a review.
-            </p>
-          {% endif %}
-        </div>
       </div>
     </div>
+
+    <!-- ✅ REVIEWS NOW BELOW BOTH IMAGE & DETAILS -->
+    <div class="review-section">
+
+      <h3>Customer Reviews</h3>
+
+      {% for review in product.reviews.all %}
+      <div class="review">
+        <img src="{% static 'images/user.png' %}" class="review-avatar">
+        <div class="review-content">
+          <div class="review-header">
+            <strong>{{ review.user.username }}</strong>
+            <span class="stars">
+              {% for i in "12345" %}
+                {% if forloop.counter <= review.rating %}
+                  ★
+                {% else %}
+                  ☆
+                {% endif %}
+              {% endfor %}
+            </span>
+          </div>
+          <p>{{ review.comment }}</p>
+          <small>{{ review.created_at|date:"M d, Y" }}</small>
+        </div>
+      </div>
+      {% empty %}
+        <p>No reviews yet.</p>
+      {% endfor %}
+
+      {% if user.is_authenticated %}
+      <div class="write-review">
+        <h4>Write a Review</h4>
+
+        <!-- Write Review Button -->
+        <button type="button"
+                class="btn btn-outline-primary"
+                id="writeReviewBtn"
+                onclick="toggleReviewForm()">
+          Write a Review
+        </button>
+
+        <!-- Review Form -->
+        <form method="POST" id="reviewForm" style="display:none;">
+  
+          <!-- 🔹 NEW CLOSE BUTTON (INSIDE FORM) -->
+          <button type="button"
+                  class="review-close-btn"
+                  onclick="toggleReviewForm()">
+            ✕
+          </button>
+
+          {% csrf_token %}
+
+          <div class="star-rating">
+              {% for i in "54321" %}
+              <input type="radio" name="rating" value="{{ i }}" id="star{{ i }}">
+              <label for="star{{ i }}">★</label>
+              {% endfor %}
+          </div>
+
+          <textarea name="comment" placeholder="Write your review..." required></textarea>
+
+          <div class="form-submit">
+            <button type="submit" class="btn">Send</button>
+          </div>
+        </form>
+
+      </div>
+      {% endif %}
+    </div>
+
   </div>
 </section>
+
+
+<script>
+function toggleReviewForm() {
+    const form = document.getElementById("reviewForm");
+    const button = document.getElementById("writeReviewBtn");
+    
+    // Toggle visibility
+    if (form.style.display === "none" || form.style.display === "") {
+        form.style.display = "block";
+        button.style.display = "none"; // Hide the "Write a Review" button
+    } else {
+        form.style.display = "none";
+        button.style.display = "inline-block"; // Show the button again
+    }
+}
+</script>
+
+
 {% endblock content %}
