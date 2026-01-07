@@ -33,19 +33,19 @@
         <span class="product-badge {{ product.status }}">{{ product.status|title }}</span>
       {% endif %}
 
-      <a href="{% url 'product-detail' product.slug %}" class="product-link">
+      <a href="{% url 'product-detail' product.pk %}" class="product-link">
         <div class="product-image" style="background-image: url('{{ product.image.url }}');"></div>
       </a>
 
       <div class="product-actions">
         <a href="#" title="Add to Cart">🛒</a>
-        <a href="{% url 'product-detail' product.slug %}" title="Details">🔍</a>
+        <a href="{% url 'product-detail' product.pk %}" title="Details">🔍</a>
         <a href="#" title="Wishlist">♡</a>
       </div>
 
       <div class="product-info">
         <div class="product-title-price">
-          <a href="{% url 'product-detail' product.slug %}" class="product-name">{{ product.name }}</a>
+          <a href="{% url 'product-detail' product.pk %}" class="product-name">{{ product.name }}</a>
           <span class="price">${{ product.price }}</span>
         </div>
       </div>

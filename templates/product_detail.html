@@ -49,18 +49,21 @@
         </div>
 
         <p class="description">
-          {{ product.description }}
+          {{ product.description|linebreaksbr }}
         </p>
 
-        <div class="product-actions">
-          <a href="#" class="btn">Add to Cart</a>
-          <a href="#" class="btn secondary">Buy Now</a>
-        </div>
+        <div class="detail-cart-concern">
+          <div class="cart-button d-flex justify-content-between align-items-center">
+            <a href="#" class="btn-wrap cart-link d-flex align-items-center text-capitalize fs-6">🛒</a>
+            <a href="#" class="wishlist-btn mt-1">
+              <i class="icon icon-heart"></i>
+            </a>
+          </div>
+      </div>
       </div>
     </div>
 
-    <!-- ✅ REVIEWS NOW BELOW BOTH IMAGE & DETAILS -->
-    <div class="review-section">
+    {% comment %} <div class="review-section">
 
       <h3>Customer Reviews</h3>
 
@@ -128,27 +131,66 @@
 
       </div>
       {% endif %}
-    </div>
+    </div> {% endcomment %}
 
   </div>
 </section>
 
+<div class="card reviews-card">
 
-<script>
-function toggleReviewForm() {
-    const form = document.getElementById("reviewForm");
-    const button = document.getElementById("writeReviewBtn");
-    
-    // Toggle visibility
-    if (form.style.display === "none" || form.style.display === "") {
-        form.style.display = "block";
-        button.style.display = "none"; // Hide the "Write a Review" button
-    } else {
-        form.style.display = "none";
-        button.style.display = "inline-block"; // Show the button again
-    }
-}
-</script>
+    <h3>Reviews</h3>
+
+    {% if user.is_authenticated %}
+    <form method="POST" action="{% url 'submit_review' product.id %}" class="review-form">
+        {% csrf_token %}
+
+        <div class="star-rating">
+            {% for i in "54321" %}
+            <input type="radio" name="rating" value="{{ i }}" id="star{{ i }}">
+            <label for="star{{ i }}">★</label>
+            {% endfor %}
+        </div>
+
+        <textarea name="comment" placeholder="Write your review..." required></textarea>
+        <div class="form-submit">
+          <button type="submit" class="btn">Send Review</button>
+        </div>
+    </form>
+    {% else %}
+    <p><a href="{% url 'login' %}">Login</a> to write a review.</p>
+    {% endif %}
+
+    <hr>
+
+    <!-- REVIEWS LIST -->
+    <div id="review-list">
+        {% for review in reviews %}
+        <div class="review-item">
+            <img src="{{ review.user.image.url }}">
+            <div>
+                <strong>{{ review.user.username }}</strong>
+                <div class="stars">
+                    {% for i in "12345" %}
+                        {% if forloop.counter <= review.rating %}★{% else %}☆{% endif %}
+                    {% endfor %}
+                </div>
+                <p>{{ review.message }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if total_reviews > 5 %}
+    <button
+        id="load-more"
+        class="btn outline full"
+        data-url="{% url 'load_more_reviews' product.id %}"
+        data-offset="5"
+    >
+        See more
+    </button>    
+    {% endif %}
+</div>
 
 
 {% endblock content %}

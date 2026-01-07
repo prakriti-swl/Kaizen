@@ -4,6 +4,7 @@ from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 class TimeStampModel(models.Model):
@@ -107,8 +108,8 @@ class Review(models.Model):
         related_name='reviews'
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    rating = models.PositiveIntegerField(choices=[(i, i) for i in range(1, 6)])
-    comment = models.TextField()
+    rating = models.PositiveIntegerField(choices=[(i, i) for i in range(1, 6)], verbose_name=_("Rating (1-5)"))
+    comment = models.TextField(verbose_name=("Review Message"))
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

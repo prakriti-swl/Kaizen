@@ -5,7 +5,7 @@ from django.views.generic import TemplateView, ListView, DetailView
 from .models import Category, Product, Review
 from django.http import JsonResponse
 from django.views import View
-from kaizen_app.forms import ContactForm, ReviewForm
+from kaizen_app.forms import ContactForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
@@ -90,33 +90,20 @@ class ProductListView(ListView):
     def get_queryset(self):
         return Category.objects.prefetch_related('products').all()
 
+
 class ProductDetailView(DetailView):
     model = Product
     template_name = 'product_detail.html'
     context_object_name = 'product'
-    slug_field = 'slug'
-    slug_url_kwarg = 'slug'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['review_form'] = ReviewForm()
+        total_reviews = self.object.reviews.count()
+        context['reviews'] = self.object.reviews.all()[:4]
+        context['total_reviews'] = min(total_reviews, 20)
+
         return context
 
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        form = ReviewForm(request.POST)
-
-        if form.is_valid():
-            Review.objects.update_or_create(
-                product=self.object,
-                user=request.user,
-                defaults={
-                    'rating': form.cleaned_data['rating'],
-                    'comment': form.cleaned_data['comment']
-                }
-            )
-
-        return redirect(self.request.path)
 
 class NewArrivalView(TemplateView):
     template_name = 'new_arrival.html'
@@ -140,17 +127,16 @@ class SubmitReviewView(View):
 
         if request.user.is_authenticated:
             rating = request.POST.get('rating')
-            comment = request.POST.get('comment')  # matches your form field
+            comment = request.POST.get('comment')  
 
-            if rating and comment:
-                Review.objects.create(
-                    product=product,
-                    user=request.user,
-                    rating=int(rating),
-                    comment=comment
-                )
+            Review.objects.create(
+                product=product,
+                user=request.user,
+                rating=int(rating),
+                comment=comment
+            )
 
-        return redirect('product_detail', pk=pk)
+        return redirect('product-detail', pk=pk)
 
 
 class LoadMoreReviewsView(View):
@@ -172,7 +158,7 @@ class LoadMoreReviewsView(View):
                 'username': review.user.userprofile.username,
                 'image': review.user.userprofile.image.url if hasattr(review.user, 'userprofile') else '',
                 'rating': review.rating,
-                'message': review.comment,  # 🔹 keep 'message' to match JS
+                'message': review.comment,
             })
 
         return JsonResponse({
