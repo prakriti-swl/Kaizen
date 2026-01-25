@@ -1,12 +1,17 @@
 from django.utils import timezone as dj_timezone
 from datetime import timedelta
 from django.shortcuts import get_object_or_404, render, redirect
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import TemplateView, ListView, DetailView, FormView
 from .models import Category, Product, Review
 from django.http import JsonResponse
 from django.views import View
-from kaizen_app.forms import ContactForm
+from kaizen_app.forms import ContactForm, SignUpForm
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.contrib.auth.views import LoginView, LogoutView
+
 
 # Create your views here.
 class HomeView(TemplateView):
@@ -23,6 +28,32 @@ class HomeView(TemplateView):
 
         return context
 
+# -------------------------
+# SignUp View
+# -------------------------
+class SignUpView(FormView):
+    template_name = "signup.html"
+    form_class = SignUpForm
+    success_url = reverse_lazy("account")
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)  # auto-login after signup
+        return super().form_valid(form)
+
+class CustomLoginView(LoginView):
+    template_name = "login.html"
+
+    def get_success_url(self):
+        return reverse_lazy("account")
+
+
+class CustomLogoutView(LogoutView):
+    next_page = reverse_lazy("login")
+
+
+class AccountView(LoginRequiredMixin, TemplateView):
+    template_name = "account.html"
 
     
 class IntroView(TemplateView):
@@ -103,6 +134,12 @@ class ProductDetailView(DetailView):
         context['total_reviews'] = min(total_reviews, 20)
 
         return context
+
+class AccountView(LoginRequiredMixin, TemplateView):
+    template_name = 'account.html'
+
+    def account(request):
+        return render(request, 'account.html')
 
 
 class NewArrivalView(TemplateView):

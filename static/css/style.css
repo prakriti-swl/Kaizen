@@ -404,6 +404,73 @@ a {
   --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M4 18q-.425 0-.712-.288T3 17q0-.425.288-.712T4 16h16q.425 0 .713.288T21 17q0 .425-.288.713T20 18zm0-5q-.425 0-.712-.288T3 12q0-.425.288-.712T4 11h16q.425 0 .713.288T21 12q0 .425-.288.713T20 13zm0-5q-.425 0-.712-.288T3 7q0-.425.288-.712T4 6h16q.425 0 .713.288T21 7q0 .425-.288.713T20 8z'/%3E%3C/svg%3E");
 }
 
+
+/* --- Auth / Account Section --- */
+.auth-section, .account-section {
+    padding: 50px 0;
+}
+
+.auth-card, .account-card {
+    max-width: 500px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.auth-card h3, .account-card h3 {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    color: var(--dark-color);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.auth-btn, .account-btn {
+    background: var(--accent-color);
+    color: #fff;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.auth-btn:hover, .account-btn:hover {
+    background: var(--dark-color);
+    transform: scale(1.05);
+}
+
+.account-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.account-header .profile-image img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.account-info p {
+    font-size: 1rem;
+    margin-bottom: 8px;
+}
+
+
+
 /*----- hero Section Style -------------------------*/
 
 /* swiper style  */
@@ -782,7 +849,7 @@ img.logo-image:hover {
   }
 }
 
-/* NEW ARRIVAL – FINAL FIX (NO CONFLICTS) */
+/* NEW ARRIVAL */
 .product-store .product-item {
   position: relative;
   display: flex;
@@ -793,7 +860,7 @@ img.logo-image:hover {
 .product-store .image-holder {
   position: relative;
   overflow: hidden;
-  height: 300px; /* your fixed image container height */
+  height: 300px;
 }
 
 /* Product image */
@@ -807,9 +874,9 @@ img.logo-image:hover {
 /* Hover overlay: FULL overlay over entire image for perfect centering */
 .product-store .cart-concern {
   position: absolute;
-  top: 30%;                  /* changed from 50% to 30% to move it UP */
+  top: 30%;                  
   left: 50%;                 
-  transform: translate(-50%, -50%);  /* center horizontally and adjust vertically */
+  transform: translate(-50%, -50%);  
   background: transparent;
   display: flex;
   align-items: center;
@@ -867,7 +934,7 @@ img.logo-image:hover {
 }
 
 
-/* Product name: allow 2 lines cleanly, but remove forced min-height */
+/* Product name */
 .product-store .product-title {
   font-size: 1.2rem;
   line-height: 1.3;
@@ -1204,7 +1271,8 @@ img.logo-image:hover {
 
 .product-info-detail {
   padding: 15px 15px;
-    flex: 1;
+  flex: 1;
+  height: 600px;
 }
 
 .product-detail-name {
@@ -1290,11 +1358,6 @@ img.logo-image:hover {
 
 /* REVIEW SECTION */
 
-.review-section {
-    border-top: 1px solid #eaeaea;
-    padding-top: 35px;
-}
-
 .review-section h3 {
     font-size: 1.5rem;
     margin-bottom: 25px;
@@ -1336,15 +1399,6 @@ img.logo-image:hover {
 }
 
 /* WRITE REVIEW FORM */
-
-/* Hide the 'Write a Review' button when form is displayed */
-#reviewForm {
-    display: none;
-}
-
-#reviewForm.show {
-    display: block; /* Show form */
-}
 
 .review-close-btn {
     margin-bottom: 6px;
@@ -1482,6 +1536,93 @@ img.logo-image:hover {
     color: #ffc107;
     font-size: 16px;
 }
+
+/* ===============================
+   ADDED: PRODUCT ACTION BUTTONS
+   =============================== */
+
+.product-actions-row {
+    display: flex;
+    gap: 14px;
+    margin-top: 25px;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    border-radius: 24px;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border: 1.5px solid var(--accent-color);
+    color: var(--accent-color);
+    transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.action-btn:hover {
+    transform: scale(1.08);
+    background: var(--accent-color);
+    color: #fff;
+}
+
+.order-btn {
+    background: var(--accent-color);
+    color: #fff;
+}
+
+/* ===============================
+   ADDED: BOTTOM LAYOUT
+   =============================== */
+
+.product-bottom-section {
+    display: flex;
+    gap: 40px;
+    margin-top: 60px;
+}
+
+.reviews-card {
+    flex: 2;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+}
+
+.order-side-card {
+    flex: 1;
+    background: #fafafa;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    position: sticky;
+    top: 110px;
+    max-height: fit-content;
+}
+
+.action-btn.full {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+/* ===============================
+   CLEANUP: REVIEW ITEM
+   =============================== */
+
+.review-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.review-item img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
 
 
 /* RESPONSIVE */
@@ -1626,7 +1767,7 @@ a.footer-link:hover {
   }
 
   /* dropdown-menu */
-  .dropdown-menu {
+  /* .dropdown-menu {
     padding: 0;
     border: none;
     line-height: 1.4;
@@ -1637,7 +1778,7 @@ a.footer-link:hover {
     position: absolute;
     right: 0;
     top: 21px;
-  }
+  } */
 }
 
 

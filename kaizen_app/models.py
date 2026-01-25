@@ -123,6 +123,7 @@ class Review(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     username = models.CharField(max_length=150, unique=True)
+    address = models.CharField(max_length=255, blank=True)
     email = models.EmailField(unique=True)  
     phone = models.CharField(max_length=10, unique=True) 
     image = models.ImageField(

@@ -1,8 +1,13 @@
 from django.urls import path
+from django.contrib.auth import views as auth_views
 from kaizen_app import views
 
 urlpatterns = [
     path("", views.HomeView.as_view(), name="home"),
+    path("signup/", views.SignUpView.as_view(), name="signup"),
+    path("login/", views.CustomLoginView.as_view(), name="login"),
+    path("logout/", views.CustomLogoutView.as_view(), name="logout"),
+    path("account/", views.AccountView.as_view(), name="account"),
     path("intro/", views.IntroView.as_view(), name="intro"),
     path("about/", views.AboutView.as_view(), name="about"),
     path("contact/", views.ContactView.as_view(), name="contact"),

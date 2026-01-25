@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="about-hero" style="background-image: url({% static 'img/background-img1.jpg' %});">
+  <h2>My Account</h2>
+  <p>Manage your profile and account settings</p>
+</section>
+
+<section class="account-section">
+  <div class="container">
+    <div class="account-card">
+      <div class="account-header">
+        <div class="profile-image">
+          {% if user.userprofile.image %}
+            <img src="{{ user.userprofile.image.url }}" alt="{{ user.username }}">
+          {% else %}
+            <img src="{% static 'img/default-user.png' %}" alt="User">
+          {% endif %}
+        </div>
+        <h3>{{ user.username }}</h3>
+        <p class="email">{{ user.email }}</p>
+      </div>
+
+      <hr>
+
+      <div class="account-info">
+        <h4>Personal Information</h4>
+        <p><strong>First Name:</strong> {{ user.first_name }}</p>
+        <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Phone:</strong> {{ user.userprofile.phone }}</p>
+        <p><strong>Address:</strong> {{ user.userprofile.address }}</p>
+      </div>
+
+      <hr>
+
+      <div class="account-actions">
+        <a href="{% url 'logout' %}" class="btn account-btn logout-btn">Logout</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
